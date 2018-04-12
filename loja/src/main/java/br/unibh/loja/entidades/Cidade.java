@@ -1,29 +1,56 @@
 package br.unibh.loja.entidades;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.Version;
+
 /**
  * Dados de uma cidade
  * @author Cruvinel 
  */
+@Entity
+@Table(name="tb_cidade", uniqueConstraints = {
+	    @UniqueConstraint(columnNames = { "nome"})
+	})
 public class Cidade {
 	
 	// Atributos privados da classe
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(length=100, nullable=false)
 	private String nome;
+	
+	@Column(nullable=false)
 	private Estado estado;
 	
-	// Construtores
-	public Cidade() {
-	}
+	@Version
+	private Long version;
 	
+	// Construtores
 	public Cidade(Long id, String nome, Estado estado) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.estado = estado;
 	}
+	public Cidade() {
+		super();
+	}
 	
-	// Metodos sobrescritos da classe ancestral
+	// Metodos utilitarios
 	
+	@Override
+	public String toString() {
+		return "Cidade [id=" + id + ", nome=" + nome + ", estado=" + estado + "]";
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -33,7 +60,7 @@ public class Cidade {
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -58,13 +85,7 @@ public class Cidade {
 		return true;
 	}
 	
-
-	@Override
-	public String toString() {
-		return "Cidade [id=" + id + ", nome=" + nome + ", estado=" + estado + "]";
-	}
-
-	// Metodos Gets e Sets
+	//	Gets e Sets
 	public Long getId() {
 		return id;
 	}
@@ -83,6 +104,11 @@ public class Cidade {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-		
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 	
 }
