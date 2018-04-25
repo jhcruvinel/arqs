@@ -14,6 +14,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name="tb_fornecedor", uniqueConstraints = {
 	    @UniqueConstraint(columnNames = { "nome"}),
@@ -27,22 +32,34 @@ public class Fornecedor {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
 	@Column(length=100, nullable=false)
 	private String nome;
 	
+	@NotBlank
+	@Pattern(regexp="\\d{14}|\\{15}", message="Fornecer 11 dígitos sem caracteres de separação")
 	@Column(length=15, nullable=false)
 	private String cnpj;
 	
+	@NotBlank
+	@Size(max=255)
+	@Pattern(regexp="[A-zÀ-ú-.´ ]*", message="Caracteres permitidos: letras, espaços, ponto, traço e aspas simples")
 	@Column(length=255, nullable=false)
 	private String endereco;
 	
+	@NotNull
 	@ManyToOne(optional=false)
 	@JoinColumn(name="id_cidade", referencedColumnName="id")
 	private Cidade cidade;
 	
+	@NotBlank
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}", message="Fornecer um telefone no formato (99)09999-9999")
 	@Column(length=14, nullable=false)
 	private String telefone;
 	
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_cadastro", nullable=false)
 	private Date dataCadastro;
@@ -65,13 +82,13 @@ public class Fornecedor {
 	}
 	
 	// Metodos utilitarios
-	@Override
+	
 	public String toString() {
 		return "Fornecedor [id=" + id + ", nome=" + nome + ", cnpj=" + cnpj + ", endereco=" + endereco + ", cidade="
 				+ cidade + ", dataCadastro=" + dataCadastro + "]";
 	}
 	
-	@Override
+	
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -84,7 +101,7 @@ public class Fornecedor {
 		return result;
 	}
 	
-	@Override
+	
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

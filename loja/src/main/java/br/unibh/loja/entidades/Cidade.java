@@ -8,6 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Dados de uma cidade
@@ -25,9 +30,13 @@ public class Cidade {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
 	@Column(length=100, nullable=false)
 	private String nome;
 	
+	@NotNull
 	@Column(nullable=false)
 	private Estado estado;
 	
@@ -47,11 +56,11 @@ public class Cidade {
 	
 	// Metodos utilitarios
 	
-	@Override
+	
 	public String toString() {
 		return "Cidade [id=" + id + ", nome=" + nome + ", estado=" + estado + "]";
 	}
-	@Override
+	
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -61,7 +70,7 @@ public class Cidade {
 		return result;
 	}
 	
-	@Override
+	
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
