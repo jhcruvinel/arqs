@@ -10,6 +10,7 @@ import br.unibh.loja.entidades.Cidade;
 @Stateless
 @LocalBean
 public class ServicoCidade implements DAO<Cidade, Long> {
+	
 	@Inject
 	EntityManager em;
 

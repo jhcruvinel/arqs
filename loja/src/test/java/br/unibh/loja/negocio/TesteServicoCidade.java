@@ -31,7 +31,7 @@ public class TesteServicoCidade {
 	@Deployment
 	public static Archive<?> createTestArchive() {
 		// Cria o pacote que vai ser instalado no Wildfly para realizacao dos testes
-		return ShrinkWrap.create(WebArchive.class, "testeseguro.war")
+		return ShrinkWrap.create(WebArchive.class, "testeloja.war")
 				.addClasses(Cidade.class, Estado.class, Fornecedor.class, 
 						Resources.class, DAO.class, ServicoCidade.class)
 				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
@@ -44,14 +44,14 @@ public class TesteServicoCidade {
 	private Logger log;
 
 	@Inject
-	private ServicoCidade ss;
+	private ServicoCidade sc;
 
 	@Test
 	public void teste01_inserirSemErro() throws Exception {
 		log.info("============> Iniciando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
 		Cidade o = new Cidade(null, "Belo Horizonte", Estado.MG);
-		ss.insert(o);
-		Cidade aux = (Cidade) ss.findByName("Belo Horizonte").get(0);
+		sc.insert(o);
+		Cidade aux = (Cidade) sc.findByName("Belo Horizonte").get(0);
 		assertNotNull(aux);
 		log.info("============> Finalizando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
@@ -61,7 +61,7 @@ public class TesteServicoCidade {
 		log.info("============> Iniciando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
 		try {
 			Cidade o = new Cidade(null, "Belo Horizonte@", Estado.MG);
-			ss.insert(o);
+			sc.insert(o);
 		} catch (Exception e){
 			assertTrue(checkString(e, "Caracteres permitidos: letras, espaços, ponto e aspas simples"));
 		}
@@ -71,10 +71,10 @@ public class TesteServicoCidade {
 	@Test
 	public void teste03_atualizar() throws Exception {
 		log.info("============> Iniciando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
-		Cidade o = (Cidade) ss.findByName("Belo Horizonte").get(0);
+		Cidade o = (Cidade) sc.findByName("Belo Horizonte").get(0);
 		o.setNome("Belo Horizonte modificado");
-		ss.update(o);
-		Cidade aux = (Cidade) ss.findByName("Belo Horizonte modificado").get(0);
+		sc.update(o);
+		Cidade aux = (Cidade) sc.findByName("Belo Horizonte modificado").get(0);
 		assertNotNull(aux);
 		log.info("============> Finalizando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
@@ -82,9 +82,9 @@ public class TesteServicoCidade {
 	@Test
 	public void teste04_excluir() throws Exception {
 		log.info("============> Iniciando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
-		Cidade o = (Cidade) ss.findByName("Belo Horizonte").get(0);
-		ss.delete(o);
-		assertEquals(0, ss.findByName("Belo Horizonte modificado").size());
+		Cidade o = (Cidade) sc.findByName("Belo Horizonte").get(0);
+		sc.delete(o);
+		assertEquals(0, sc.findByName("Belo Horizonte modificado").size());
 		log.info("============> Finalizando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
 	}
 
