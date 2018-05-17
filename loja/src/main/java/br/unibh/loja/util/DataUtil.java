@@ -1,26 +1,22 @@
 package br.unibh.loja.util;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import org.joda.time.DateTime;
-import org.joda.time.Period;
+import org.joda.time.Days;
 
+/**
+ * Código de exemplo de como calcular número de dias entre datas
+ */
 public class DataUtil {
-	
-	public static Period comparaDatas(Date d1, Date d2) {
-		return new Period(new DateTime(d1), new DateTime(d2));
-	}
-	
-	public static Period comparaDataComDataCorrente(Date d1) {
-		return new Period(new DateTime(d1), new DateTime());
-	}
 	
 	public static void main(String args[]) {
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MONTH, 6);
-		Period p = comparaDataComDataCorrente(cal.getTime());
-		System.out.println(p.getYears());
+		cal.add(Calendar.MONTH, -6); // Diminuindo 6 meses
+		DateTime anterior = new DateTime(cal.getTime());
+		DateTime atual = new DateTime();
+		long dias = Days.daysBetween(anterior.toLocalDate(), atual.toLocalDate()).getDays();
+		System.out.println(dias);
 	}
 
 }
