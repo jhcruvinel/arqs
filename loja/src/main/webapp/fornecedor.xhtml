@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{fornecedormb.fornecedor != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+					<h:outputText value="Cadastro de Fornecedors"
+						style="font-size:18px;font-weight:bold" />
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="4" styleClass="ui-noborder">
+						<p:outputLabel value="Nome " />
+						<p:inputText id="nome" value="#{fornecedormb.fornecedor.nome}" size="50" />
+						<p:message for="nome" errorClass="invalid" />
+						<h:outputText value=" "/>
+						<p:outputLabel value="CNPJ " />
+						<p:inputMask id="cnpj" value="#{fornecedormb.fornecedor.cnpj}" mask="?999999999999999" size="15" maxlength="15"/>
+						<p:message for="cnpj" errorClass="invalid" />
+						<h:outputText value=" "/>
+						<p:outputLabel value="Endereço " />
+						<p:inputTextarea id="endereco" rows="2" cols="50" counter="display" 
+							counterTemplate="restam {0} caracteres" autoResize="false"
+							 value="#{fornecedormb.fornecedor.endereco}" minQueryLength="3" maxlength="255"/>
+						<p:message for="endereco" errorClass="invalid" />
+						<h:outputText id="display" />
+						<p:outputLabel value="Cidade" />
+						<p:selectOneMenu id="cidade" value="#{fornecedormb.fornecedor.cidade}" enableManualInput="true" 
+								defaultLabel="digite para filtrar" converter="ConversorCidade">
+							<f:selectItem itemValue="#{null}" itemLabel="" />
+							<f:selectItems value="#{cidademb.cidades}" var="cidade"
+								itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
+						</p:selectOneMenu>
+						<p:message for="cidade" errorClass="invalid" />
+						<h:outputText value=" "/>
+						<p:outputLabel value="Telefone " />
+						<p:inputMask id="telefone" value="#{fornecedormb.fornecedor.telefone}" mask="(99)9999?9-9999"/>
+						<p:message for="telefone" errorClass="invalid" />
+						<h:outputText value=" "/>
+					</p:panelGrid>
+					<p:commandButton id="gravar" action="#{fornecedormb.gravar}"
+						value="Gravar" update="@all" />
+					<p:commandButton id="cancelar" action="#{fornecedormb.pesquisar}"
+						value="Voltar" immediate="true" update="@all"
+						/>
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{fornecedormb.fornecedor == null}">
+			<h:outputText value="Lista de Fornecedores"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Nome:" />
+					<p:inputText id="nomeArg" value="#{fornecedormb.nomeArg}" />
+					<p:commandButton id="pesquisar" action="#{fornecedormb.pesquisar}"
+						value="Pesquisar" update="@all" />
+					<p:commandButton id="novo" action="#{fornecedormb.novo}" value="Novo"
+						update="@all" />
+				</p:panelGrid>
+			</h:form>
+			<h:panelGroup rendered="#{empty fornecedormb.lista}">
+				<h:outputText value="Nenhum registro foi encontrado" />
+			</h:panelGroup>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="fornecedor" value="#{fornecedormb.lista}"
+					rendered="#{not empty fornecedormb.lista}"
+					onrowclick="selectRow('#{fornecedor.id}')" paginator="true" rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{fornecedor.id}">
+						<div align="center">
+							<h:outputText value="#{fornecedor.id}" />
+						</div>
+					</p:column>
+					<p:column headerText="Nome" width="20%" sortBy="#{fornecedor.nome}">
+						<h:outputText value="#{fornecedor.nome}" />
+					</p:column>
+					<p:column headerText="CNPJ" width="20%">
+						<h:outputText value="#{fornecedor.cnpj}" />
+					</p:column>
+					<p:column headerText="Cidade" width="20%" sortBy="#{fornecedor.cidade.nome}">
+						<h:outputText value="#{fornecedor.cidade.nome}" />
+					</p:column>
+					<p:column headerText="Telefone" width="20%">
+						<h:outputText value="#{fornecedor.telefone}" />
+					</p:column>
+					<p:column headerText="Comandos" width="20%">
+						<div align="center">
+							<p:commandLink id="editar" action="#{fornecedormb.editar(fornecedor.id)}"
+								value="Editar" update="@all" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir"
+								action="#{fornecedormb.excluir(fornecedor.id)}" value="Excluir"
+								update="@all" >
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão da fornecedor #{fornecedor.nome}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+						</div>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" id="confirmDialog" >
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>

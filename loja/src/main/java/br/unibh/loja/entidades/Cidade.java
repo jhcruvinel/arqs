@@ -1,5 +1,7 @@
 package br.unibh.loja.entidades;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,8 +29,10 @@ import org.hibernate.validator.constraints.NotBlank;
 @NamedQueries({
 	@NamedQuery(name="Cidade.findByName", query = "select o from Cidade o where o.nome like :nome")
 })
-public class Cidade {
+public class Cidade implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	// Atributos privados da classe
 	
 	@Id

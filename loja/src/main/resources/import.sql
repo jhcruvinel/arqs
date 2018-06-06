@@ -23,7 +23,6 @@ INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (22,"Archennes",
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (23,"Tsiigehtchic",12,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (24,"Port Hope",16,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (25,"Porto Alegre",11,"1");
-INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (26,"Lachine",16,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (27,"Florida",11,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (28,"Rea",12,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (29,"Oyen",12,"1");
@@ -40,7 +39,6 @@ INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (39,"Rio Marina"
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (40,"Deline",12,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (41,"Saint-Nazaire",13,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (42,"Bath",14,"1");
-INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (43,"Kailua",15,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (44,"Friedberg",17,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (45,"Masone",13,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (46,"Bahraich",13,"1");
@@ -96,5 +94,4 @@ INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (95,"Orilla",17,
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (96,"Nizip",15,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (97,"Brampton",11,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (98,"Salvador",15,"1");
-INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (99,"Mandasor",17,"1");
 INSERT INTO `tb_cidade` (`id`,`nome`,`estado`,`version`) VALUES (100,"Altavilla Irpina",13,"1");

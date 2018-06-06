@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{cidademb.cidade != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+					<h:outputText value="Cadastro de Cidades"
+						style="font-size:18px;font-weight:bold" />
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+						<p:outputLabel value="Nome " />
+						<p:inputText id="nome" value="#{cidademb.cidade.nome}" size="50" />
+						<p:message for="nome" errorClass="invalid" />
+						<p:outputLabel value="Estado " />
+						<h:selectOneMenu id="estado" value="#{cidademb.cidade.estado}">
+							<f:selectItems value="#{cidademb.estados}" />
+						</h:selectOneMenu>
+						<p:message for="estado" errorClass="invalid" />
+					</p:panelGrid>
+					<p:commandButton id="gravar" action="#{cidademb.gravar}"
+						value="Gravar" update="@all" />
+					<p:commandButton id="cancelar" action="#{cidademb.pesquisar}"
+						value="Voltar" immediate="true" update="@all"
+						/>
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{cidademb.cidade == null}">
+			<h:outputText value="Lista de Cidadees"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Nome:" />
+					<p:inputText id="nomeArg" value="#{cidademb.nomeArg}" />
+					<p:commandButton id="pesquisar" action="#{cidademb.pesquisar}"
+						value="Pesquisar" update="@all" />
+					<p:commandButton id="novo" action="#{cidademb.novo}" value="Novo"
+						update="@all" />
+				</p:panelGrid>
+			</h:form>
+			<h:panelGroup rendered="#{empty cidademb.lista}">
+				<h:outputText value="Nenhum registro foi encontrado" />
+			</h:panelGroup>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="cidade" value="#{cidademb.lista}"
+					rendered="#{not empty cidademb.lista}"
+					onrowclick="selectRow('#{cidade.id}')" paginator="true" rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{cidade.id}">
+						<div align="center">
+							<h:outputText value="#{cidade.id}" />
+						</div>
+					</p:column>
+					<p:column headerText="Nome" width="35%" sortBy="#{cidade.nome}">
+						<h:outputText value="#{cidade.nome}" />
+					</p:column>
+					<p:column headerText="Estado" width="15%" sortBy="#{cidade.estado}">
+						<h:outputText value="#{cidade.estado}" />
+					</p:column>
+					<p:column headerText="Comandos" width="20%">
+						<div align="center">
+							<p:commandLink id="editar" action="#{cidademb.editar(cidade.id)}"
+								value="Editar" update="@all" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir"
+								action="#{cidademb.excluir(cidade.id)}" value="Excluir"
+								update="@all" >
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão da cidade #{cidade.nome}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+						</div>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade" id="confirmDialog" >
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>

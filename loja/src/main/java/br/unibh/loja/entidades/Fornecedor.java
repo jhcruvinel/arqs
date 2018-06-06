@@ -1,5 +1,6 @@
 package br.unibh.loja.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,7 +27,12 @@ import org.hibernate.validator.constraints.NotBlank;
 	    @UniqueConstraint(columnNames = { "nome"}),
 	    @UniqueConstraint(columnNames = { "cnpj"})
 	})
-public class Fornecedor {
+@NamedQueries({
+	@NamedQuery(name="Fornecedor.findByName", query = "select o from Fornecedor o where o.nome like :nome")
+})
+public class Fornecedor implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	// Atributos privados da classe
 	
@@ -39,12 +47,12 @@ public class Fornecedor {
 	private String nome;
 	
 	@NotBlank
-	@Pattern(regexp="\\d{14}|\\{15}", message="Fornecer 11 dígitos sem caracteres de separação")
+	@Pattern(regexp="\\d{14}\\d{0,1}", message="Fornecer 14/15 dígitos sem caracteres de separação")
 	@Column(length=15, nullable=false)
 	private String cnpj;
 	
 	@NotBlank
-	@Size(max=255)
+	@Size(min=3, max=255)
 	@Pattern(regexp="[A-zÀ-ú-.´ ]*", message="Caracteres permitidos: letras, espaços, ponto, traço e aspas simples")
 	@Column(length=255, nullable=false)
 	private String endereco;
