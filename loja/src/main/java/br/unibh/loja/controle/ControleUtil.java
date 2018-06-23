@@ -31,7 +31,7 @@ public class ControleUtil {
 	
 	protected void mostrarErro(Exception e) {
 		mostrarErro(e.getMessage(), e.getCause().getMessage());
-		e.printStackTrace();
+		log.severe(e.getMessage());
 	}
 	
 	protected boolean checkString(Throwable e, String str){
