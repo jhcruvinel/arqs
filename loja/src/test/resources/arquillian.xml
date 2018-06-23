@@ -8,11 +8,15 @@
          <property name="executionType">REMOTE</property>
       </protocol>
       <configuration>
-         <property name="jbossHome">C:\ARQS\wildfly-11.0.0.Final</property>
+         <!-- property name="jbossHome">C:\ARQS\wildfly-11.0.0.Final</property>
          <property name="serverConfig">standalone.xml</property>
          <property name="outputToConsole">true</property>
          <property name="javaVmArguments">-Djboss.socket.binding.port-offset=100</property>
+         <property name="managementPort">10090</property-->
+         <property name="managementAddress">10.0.2.2</property>
          <property name="managementPort">10090</property>
+         <property name="username">admin</property>
+         <property name="password">unibh2018!</property>
       </configuration>
    </container>
 </arquillian>
