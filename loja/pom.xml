@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.unibh</groupId>
 	<artifactId>loja</artifactId>
-	<version>0.01</version>
+	<version>0.0.1</version>
 	<packaging>war</packaging>
 
 	<dependencyManagement>
@@ -121,6 +121,27 @@
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>sonar-maven-plugin</artifactId>
 					<version>3.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.wildfly.plugins</groupId>
+					<artifactId>wildfly-maven-plugin</artifactId>
+					<version>1.2.2.Final</version>
+					<executions>
+						<execution>
+							<phase>install</phase>
+							<goals>
+								<goal>deploy</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<force>true</force>
+						<hostname>10.0.2.2</hostname>
+						<port>10090</port>
+						<username>admin</username>
+						<password>unibh2018!</password>
+						<filename>target/loja-0.0.1.war</filename>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
