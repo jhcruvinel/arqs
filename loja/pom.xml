@@ -140,7 +140,7 @@
 						<port>10090</port>
 						<username>admin</username>
 						<password>unibh2018!</password>
-						<filename>target/loja-0.0.1.war</filename>
+						<filename>loja-${project.version}.war</filename>
 					</configuration>
 				</plugin>
 			</plugins>
