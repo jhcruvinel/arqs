@@ -13,7 +13,7 @@
          <property name="outputToConsole">true</property>
          <property name="javaVmArguments">-Djboss.socket.binding.port-offset=100</property>
          <property name="managementPort">10090</property-->
-         <property name="managementAddress">10.0.2.2</property>
+         <property name="managementAddress">127.0.0.1</property>
          <property name="managementPort">10090</property>
          <property name="username">admin</property>
          <property name="password">unibh2018!</property>
